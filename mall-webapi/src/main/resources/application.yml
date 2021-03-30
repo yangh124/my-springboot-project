@@ -1,0 +1,140 @@
+server:
+  port: @server.port@
+  servlet:
+    context-path: @server.contextPath@
+  tomcat:
+    max-http-form-post-size: 10240000
+  jetty:
+    max-http-form-post-size: 10240000
+
+spring:
+  application:
+    name: webapi
+  servlet:
+    multipart:
+      max-file-size: 20MB
+      max-request-size: 100MB
+  redis:
+    host: @spring.redis.url@
+    port: 6379
+    password: @spring.redis.pwd@
+    database: 0
+    jedis:
+      pool:
+        max-active: 8
+        max-wait: -1
+        max-idle: 8
+        min-idle: 0
+    timeout: 5000
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: @spring.datasource.url@
+    username: @spring.datasource.username@
+    password: @spring.datasource.password@
+    druid:
+      initial-size: 3
+      min-idle: 3
+      max-active: 20
+      max-wait: 60000
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 300000
+      validation-query: SELECT 1
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      pool-prepared-statements: true
+      max-pool-prepared-statement-per-connection-size: 20
+      filters: stat
+      connection-init-sqls: SET NAMES utf8mb4 COLLATE utf8mb4_unicode_ci
+    hikari:
+      connection-init-sql: SET NAMES utf8mb4 COLLATE utf8mb4_unicode_ci
+    tomcat:
+      init-s-q-l: SET NAMES utf8mb4
+  freemarker:
+    template-loader-path: classpath:/templates
+
+logging:
+  level:
+    root: @logging.level.root@
+  file: @logging.file.path@
+
+# JWT 认证配置
+jwt:
+  tokenHeader: Authorization   #请求头
+  secret: w-eyJleHAiOjE1NDMyMDUyODUsInN1YiI6ImFkbWluIiwiY3JlYXRlZCI6MTU0MDYxMzI4N  #加密的字符串
+  expiration: 2592000000     #毫秒，这里默认30天
+  tokenHead: "Bearer "
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.util.domin.entity
+
+secure:
+  ignored:
+    urls: #安全路径白名单
+      - /swagger**/**
+      - /webjars/**
+      - /v3/**
+      - /doc.html
+      - /test
+
+# ===== 自定义swagger配置 ===== #
+swagger:
+  enable: @swagger.enable@
+  application-name: ${spring.application.name}
+  application-version: 1.0
+  application-description: 链上生活webapi
+  try-host: http://localhost:${server.port}
+
+tencent-config:
+  appid: @tencent-appid@
+  appsecret: @tencent-appsecret@
+  key: @tencent-key@
+  mch_id: @tencent-mch_id@
+
+
+ali-oss-service:
+  url-prefix: @ali-oss-service.url-prefix@
+  end-point: @ali-oss-service.end-point@
+  access-key-id: @ali-oss-service.access-key-id@
+  access-key-secret: @ali-oss-service.access-key-secret@
+  bucker-name: @ali-oss-service.bucker-name@
+  myoss-url: @ali-oss-service.myoss-url@
+
+
+ali-sms-service:
+  access-key-id: @ali-accessKey-id@
+  access-key-secret: @ali-accessKey-secret@
+  sign-name: @ali-sms-sign-name@
+  template-code: @ali-sms-template-code@
+
+#qiniu-config:
+#  bucket-name: @qiniu-config.bucket-name@
+#  access-key: @qiniu-config.access-key@
+#  secret-key: @qiniu-config.secret-key@
+#  domain: @qiniu-config.domain@
+
+
+#alipay:
+#  protocol: https
+#  #支付宝网关
+#  gatewayHost: @alipay-host@
+#  #签名方式
+#  signType: RSA2
+#  #支付宝appid
+#  appId: @alipay.appid@
+#  #支付宝公钥
+# # alipayPublicKey: @alipay.alipayPublicKey@
+#  notifyUrl: @alipay.notifyUrl@
+# # returnUrl: @alipay.returnUrl@
+#  #应用私钥
+#  merchantPrivateKey: @alipay.merchantPrivateKey@
+#  #密匙
+# # encryptKey: @alipay.encryptKey@
+#  #字符编码格式
+#  charset: utf-8
+#  #successUrl: @alipay.successUrl@
+#  merchantCertPath: @alipay.merchantCertPath@
+#  alipayCertPath: @alipay.alipayCertPath@
+#  alipayRootCertPath: @alipay.alipayRootCertPath@
+

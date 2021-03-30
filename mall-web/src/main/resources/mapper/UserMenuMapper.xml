@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yh.web.mapper.UserMenuMapper">
+    <resultMap id="BaseResultMap" type="com.yh.common.domin.entity.UserMenuEntity">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="deleted" jdbcType="TINYINT" property="deleted"/>
+        <result column="parent_key" jdbcType="BIGINT" property="parentKey"/>
+        <result column="menu_key" jdbcType="BIGINT" property="menuKey"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="title" jdbcType="VARCHAR" property="title"/>
+        <result column="level" jdbcType="INTEGER" property="level"/>
+        <result column="sort" jdbcType="INTEGER" property="sort"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="icon" jdbcType="VARCHAR" property="icon"/>
+        <result column="hidden" jdbcType="INTEGER" property="hidden"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        id, parent_key, create_time, title, `level`, sort, `name`, icon, hidden,menu_key,deleted
+    </sql>
+
+    <select id="getMenuListByUserKey" resultMap="BaseResultMap">
+        SELECT m.*
+        FROM user_admin_role_relation arr
+                     LEFT JOIN user_role r ON arr.role_key = r.role_key
+                     LEFT JOIN user_role_menu_relation rmr ON r.role_key = rmr.role_key
+                     LEFT JOIN user_menu m ON rmr.menu_key = m.menu_key
+        WHERE arr.user_key = #{userKey}
+          AND m.menu_key IS NOT NULL
+        GROUP BY m.menu_key
+    </select>
+</mapper>

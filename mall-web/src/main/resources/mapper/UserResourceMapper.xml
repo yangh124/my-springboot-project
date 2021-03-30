@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yh.web.mapper.UserResourceMapper">
+    <resultMap id="BaseResultMap" type="com.yh.common.domin.entity.UserResourceEntity">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="deleted" jdbcType="TINYINT" property="deleted"/>
+        <result column="resource_key" jdbcType="BIGINT" property="resourceKey"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="url" jdbcType="VARCHAR" property="url"/>
+        <result column="description" jdbcType="VARCHAR" property="description"/>
+        <result column="category_key" jdbcType="BIGINT" property="categoryKey"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        id, create_time, `name`, url, description, category_key,resource_key,deleted
+    </sql>
+
+    <select id="getResourceList" resultMap="BaseResultMap">
+        SELECT ur.*
+        FROM user_admin_role_relation ar
+                     LEFT JOIN user_role r ON ar.role_key = r.role_key
+                     LEFT JOIN user_role_resource_relation rrr ON r.role_key = rrr.role_key
+                     LEFT JOIN user_resource ur ON ur.resource_key = rrr.resource_key
+        WHERE ar.user_key = #{userKey}
+          AND ur.resource_key IS NOT NULL
+          AND ur.deleted = 0
+        GROUP BY ur.resource_key
+    </select>
+</mapper>

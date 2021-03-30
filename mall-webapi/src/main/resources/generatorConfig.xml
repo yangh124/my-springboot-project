@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+
+    <!-- 引入外部文件-->
+    <properties resource="generator.properties"/>
+
+    <!--&lt;!&ndash; mysql 驱动 &ndash;&gt;-->
+    <!--  <classPathEntry location="D:\bos_repository\mysql\mysql-connector-java\5.1.6\mysql-connector-java-5.1.6.jar"/>-->
+
+    <classPathEntry location="${mysqlConnector.location}"/>
+
+    <!--defaultModelType
+    conditional ：如果一个表只有一个字段那么不会为该字段生成单独的实体类
+    flat ：为每张表生成一个实体类，推荐使用
+    hierarchical：如果表有主键,那么该模型会产生一个单独的主键实体类,如果表还有BLOB字段， 则会为表生成一个包含所有BLOB字段的单独的实体类,然后为所有其他的字段生成一个单独的实体类
+
+   introspectedColumnImpl: 该参数可以指定扩展org.mybatis.generator.api.IntrospectedColumn该类的实现类。该属性的作用可以查看扩展MyBatis Generator。
+
+    targetRuntime=MyBatis3Simple  会不生产xml文件
+    -->
+    <context id="my" targetRuntime="MyBatis3" defaultModelType="flat">
+
+        <property name="autoDelimitKeywords" value="true"/>
+        <property name="beginningDelimiter" value="`"/>
+
+        <property name="endingDelimiter" value="`"/>
+
+        <!-- TKmybatis配置 -->
+        <property name="javaFileEncoding" value="UTF-8"/>
+        <property name="beginningDelimiter" value="`"/>
+        <property name="endingDelimiter" value="`"/>
+
+        <plugin type="tk.mybatis.mapper.generator.MapperPlugin">
+            <!--这里是为了生成的mapper统一集成自定义的这个接口-->
+            <property name="mappers" value="com.yh.common.mybatis.MyMapper"/>
+            <!-- Lombok -->
+            <property name="lombok" value="Data"/>
+        </plugin>
+        <!--生成mapper.xml时覆盖原文件-->
+        <plugin type="org.mybatis.generator.plugins.UnmergeableXmlMappersPlugin"/>
+        <!-- 为模型生成序列化方法-->
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin"/>
+
+        <!--该元素有一个可选属性type,可以指定用户的实现类，该类需要实现org.mybatis.generator.api.CommentGenerator接口。而且必有一个默认的构造方法。这个属性接收默认的特殊值DEFAULT，会使用默认的实现类org.mybatis.generator.internal.DefaultCommentGenerator。！-->
+        <commentGenerator>
+            <!-- 是否去除自动生成的注释 true：是 ： false:否  一般是这个配置 -->
+            <property name="suppressAllComments" value="false"/>
+            <property name="suppressDate" value="true"/>
+        </commentGenerator>
+
+        <jdbcConnection driverClass="${jdbc.driverClass}"
+                        connectionURL="${jdbc.connectionURL}"
+                        userId="${jdbc.userName}"
+                        password="${jdbc.password}"/>
+
+        <!--这个元素的配置用来指定JDBC类型和Java类型如何转换。-->
+        <javaTypeResolver>
+            <!--该属性可以控制是否强制DECIMAL和NUMERIC类型的字段转换为Java类型的java.math.BigDecimal,默认值为false，一般不需要配置。-->
+            <!--<property name="forceBigDecimals" value="true" />-->
+        </javaTypeResolver>
+
+
+        <javaModelGenerator targetPackage="${javaModel.package}" targetProject="${javaModel.project}">
+            <!--该属性只对MyBatis3有效，如果true就会使用构造方法入参，如果false就会使用setter方式。默认为false-->
+            <!--<property name="constructorBased" value="false"/>-->
+            <!--如果true，MBG会根据catalog和schema来生成子包。如果false就会直接用targetPackage属性。默认为false-->
+            <!--<property name="enableSubPackages" value="false"/>-->
+            <!--该属性用来配置实体类属性是否可变，如果设置为true，那么constructorBased不管设置成什么，都会使用构造方法入参，并且不会生成setter方法。如果为false，实体类属性就可以改变。默认为false。-->
+            <!--<property name="immutable" value="true"/>-->
+            <!--设置所有实体类的基类。如果设置，需要使用类的全限定名称。并且如果MBG能够加载rootClass，那么MBG不会覆盖和父类中完全匹配的属性。匹配规则：-->
+            <!--<property name="rootClass" value="true"/>-->
+            <!--是否对数据库查询结果进行trim操作，如果设置为true就会生成类似这样public void setUsername(String username) {this.username = username == null ? null : username.trim();}的setter方法。默认值为false。-->
+            <!--<property name="trimStrings" value="true"/>-->
+        </javaModelGenerator>
+
+
+        <!--生成xml文件-->
+        <sqlMapGenerator targetPackage="${sqlMap.package}" targetProject="${sqlMap.project}">
+            <!--该元素支持<property>子元素，只有一个可以配置的属性：-->
+            <!--<property name="enableSubPackages" value="true" />-->
+        </sqlMapGenerator>
+
+        <!--生成mapper文件-->
+        <!--
+        type:
+        MyBatis3:
+        ANNOTATEDMAPPER:基于注解的Mapper接口，不会有对应的XML映射文件
+        MIXEDMAPPER:XML和注解的混合形式，(上面这种情况中的)SqlProvider注解方法会被XML替代。
+        XMLMAPPER:所有的方法都在XML中，接口调用依赖XML文件。
+
+        -->
+        <javaClientGenerator targetPackage="${javaClient.package}" targetProject="${javaClient.project}" type="MIXEDMAPPER">
+            <!--指定继承父接口-->
+            <!--            <property name="rootInterface" value="dto.MyMapper<TagsInfo>"/>-->
+        </javaClientGenerator>
+
+        <table tableName="" domainObjectName=""
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false">
+
+            <!--此属性用于配置是否为表只生成实体类。如果设置为true就不会有Mapper接口。如果配置了<sqlMapGenerator>，并且modelOnly为true，那么XML映射文件中只有实体对象的映射元素(<resultMap>)。如果为true还会覆盖属性中的enableXXX方法，将不会生成任何CRUD方法。-->
+            <!--<property name="modelOnly" value="true"/>-->
+            <!-- 是否生成分页查询代码 -->
+            <property name="generate.pagination" value="false"/>
+            <!-- 是否生成分页查询代码 -->
+        </table>
+
+    </context>
+
+</generatorConfiguration>

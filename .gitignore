@@ -1,0 +1,10 @@
+.idea/
+.gitosc/
+.git/
+target/
+*.iml
+*.tmp
+*.temp
+*.ds_store
+*.DS_Store
+/logs/

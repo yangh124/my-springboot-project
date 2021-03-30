@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yh.web.mapper.UserAdminRoleRelationMapper">
+  <resultMap id="BaseResultMap" type="com.yh.common.domin.entity.UserAdminRoleRelationEntity">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="deleted" jdbcType="BIT" property="deleted" />
+    <result column="user_key" jdbcType="BIGINT" property="userKey" />
+    <result column="role_key" jdbcType="BIGINT" property="roleKey" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    id, deleted, user_key, role_key
+  </sql>
+
+  <select id="getAdminIdList" resultType="java.lang.Long">
+    SELECT
+            DISTINCT ar.user_key
+    FROM
+            user_role_resource_relation rr
+                    LEFT JOIN user_admin_role_relation ar ON rr.role_key = ar.role_key
+    WHERE rr.resource_key=#{resourceKey}
+  </select>
+</mapper>

@@ -1,7 +1,6 @@
 package com.yh.common.domin.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -20,7 +19,6 @@ public class LoginedParamDTO<T> extends LoginedParamBaseDTO implements Serializa
 
 
     private static final long serialVersionUID = 494950671335977503L;
-    @ApiModelProperty("业务实体参数")
     private T entity;
 
 }

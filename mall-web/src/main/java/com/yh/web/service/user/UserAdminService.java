@@ -1,11 +1,11 @@
 package com.yh.web.service.user;
 
 import com.yh.common.domin.dto.LoginedParamDTO;
-import com.yh.common.domin.dto.params.user.UserAdminParam;
 import com.yh.common.domin.entity.UserAdminEntity;
 import com.yh.common.domin.entity.UserResourceEntity;
 import com.yh.common.domin.entity.UserRoleEntity;
 import com.yh.common.domin.vo.UserMenuNode;
+import com.yh.common.domin.dto.UserAdminParam;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.List;

@@ -1,8 +1,7 @@
-package com.yh.web.dto;
+package com.yh.common.domin.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.yh.common.enums.exception.ResponseCodeEnum;
-import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.ToString;
 
@@ -18,13 +17,10 @@ public class ResultDTO<T> implements Serializable {
 
     private static final long serialVersionUID = 6619214563835101337L;
 
-    @ApiModelProperty("返回码:0.成功;其他失败详情待定")
     private Integer code;
 
-    @ApiModelProperty("返回说明")
     private String message;
 
-    @ApiModelProperty("业务实体参数")
     private T entity;
 
     public static <T> ResultDTO<T> createSuccessDatagram(T entity) {

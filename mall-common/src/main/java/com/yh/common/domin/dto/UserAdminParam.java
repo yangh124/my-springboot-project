@@ -1,6 +1,5 @@
-package com.yh.web.dto;
+package com.yh.common.domin.dto;
 
-import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -13,12 +12,9 @@ import java.io.Serializable;
 public class UserAdminParam implements Serializable {
 
     private static final long serialVersionUID = 8549918012281569893L;
-    @ApiModelProperty("昵称")
     private String nickName;
 
-    @ApiModelProperty("账号")
     private String userAccount;
 
-    @ApiModelProperty("密码")
     private String password;
 }

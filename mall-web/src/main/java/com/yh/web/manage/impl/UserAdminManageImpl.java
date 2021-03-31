@@ -1,6 +1,6 @@
 package com.yh.web.manage.impl;
 
-import cn.hutool.core.util.IdUtil;
+import cn.hutool.core.lang.Snowflake;
 import com.yh.common.domin.entity.*;
 import com.yh.common.enums.ValidTypeEnum;
 import com.yh.web.manage.UserAdminManage;
@@ -28,6 +28,8 @@ public class UserAdminManageImpl implements UserAdminManage {
     private UserRoleMapper userRoleMapper;
     @Resource
     private UserAdminRoleRelationMapper userAdminRoleRelationMapper;
+    @Resource
+    private Snowflake snowflake;
 
     @Override
     public UserAdminEntity getUserAdminByAccount(String userAccount) {
@@ -52,7 +54,7 @@ public class UserAdminManageImpl implements UserAdminManage {
 
     @Override
     public Boolean addUserAdmin(UserAdminEntity userAdminEntity) {
-        Long nextId = IdUtil.getSnowflake(1, 1).nextId();
+        Long nextId = snowflake.nextId();
         userAdminEntity.setUserKey(nextId);
         return userAdminMapper.insertSelective(userAdminEntity) > 0;
     }

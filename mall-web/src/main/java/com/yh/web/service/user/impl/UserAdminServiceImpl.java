@@ -12,7 +12,6 @@ import com.yh.common.domin.entity.UserRoleEntity;
 import com.yh.common.domin.vo.UserMenuNode;
 import com.yh.common.enums.exception.BusinessException;
 import com.yh.common.enums.exception.ResponseCodeEnum;
-import com.yh.common.utils.validater.ParameterValidateUtil;
 import com.yh.web.bo.AdminUserDetails;
 import com.yh.web.manage.UserAdminManage;
 import com.yh.web.service.user.UserAdminCacheService;
@@ -67,9 +66,9 @@ public class UserAdminServiceImpl implements UserAdminService {
     @Override
     public UserAdminEntity register(LoginedParamDTO<UserAdminParam> param) {
         UserAdminParam entity = param.getEntity();
-        ParameterValidateUtil.isNull(entity, "参数");
+        //ParameterValidateUtil.isNull(entity, "参数"); TODO
         String userAccount = entity.getUserAccount();
-        ParameterValidateUtil.isBlank(userAccount, "账号");
+        //ParameterValidateUtil.isBlank(userAccount, "账号"); TODO
         UserAdminEntity userAdminByAccount = userAdminManage.getUserAdminByAccount(userAccount);
         if (ObjectUtil.isNotNull(userAdminByAccount)) {
             throw new BusinessException(ResponseCodeEnum.USER_IS_EXIST);
@@ -92,11 +91,11 @@ public class UserAdminServiceImpl implements UserAdminService {
     @Override
     public String login(LoginedParamDTO<UserAdminParam> param) {
         UserAdminParam entity = param.getEntity();
-        ParameterValidateUtil.isNull(entity, "参数");
+       // ParameterValidateUtil.isNull(entity, "参数");
         String username = entity.getUserAccount();
-        ParameterValidateUtil.isBlank(username, "账号");
+        //ParameterValidateUtil.isBlank(username, "账号");
         String password = entity.getPassword();
-        ParameterValidateUtil.isBlank(password, "密码");
+        //ParameterValidateUtil.isBlank(password, "密码");
         String token;
         //密码需要客户端加密后传递
         try {

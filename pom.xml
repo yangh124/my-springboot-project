@@ -68,17 +68,6 @@
                 <artifactId>mybatis-spring-boot-starter</artifactId>
                 <version>${mybaits.spring.boot.version}</version>
             </dependency>
-            <!--            <dependency>-->
-            <!--                <groupId>org.mybatis.generator</groupId>-->
-            <!--                <artifactId>mybatis-generator-core</artifactId>-->
-            <!--                <version>${mybatis.generator.version}</version>-->
-            <!--            </dependency>-->
-            <!--            <dependency>-->
-            <!--                <groupId>tk.mybatis</groupId>-->
-            <!--                <artifactId>mapper</artifactId>-->
-            <!--                <version>${tk.mybatis.mapper.version}</version>-->
-            <!--            </dependency>-->
-            <!--log4j-->
             <dependency>
                 <groupId>log4j</groupId>
                 <artifactId>log4j</artifactId>

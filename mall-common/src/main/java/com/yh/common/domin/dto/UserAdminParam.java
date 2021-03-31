@@ -1,4 +1,4 @@
-package com.yh.common.domin.dto.params.user;
+package com.yh.web.dto;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

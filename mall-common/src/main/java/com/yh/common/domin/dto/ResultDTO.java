@@ -1,4 +1,4 @@
-package com.yh.common.domin.dto;
+package com.yh.web.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.yh.common.enums.exception.ResponseCodeEnum;
